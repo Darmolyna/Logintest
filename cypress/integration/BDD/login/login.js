@@ -17,8 +17,8 @@ When ('I click the login button', function(){
     cy.wait(2000)
 })
 When ('I enter valid login details', function(){
-     cy.get('#loginusername').type(Cypress.env('Username'))
-     cy.get('#loginpassword').type(Cypress.env('Password'))
+     cy.get('#loginusername').type(this.data.Username)
+     cy.get('#loginpassword').type(this.data.Password)
      cy.get("button[onclick='logIn()']").click()
 })
 Then ('I verify successfull login', function(){
