@@ -8,7 +8,6 @@ beforeEach( function(){
         this.data = data 
     })
 })
-
 Given ('I open Ecommerce page', function(){
     cy.visit(Cypress.env("url"))
 })
@@ -30,7 +29,6 @@ When ('I enter invalid username and invalid password', function(){
     cy.get('#loginpassword').type("heyyou")
     cy.get("button[onclick='logIn()']").click()
 })
-
 Then ('I verify unsuccessfull login with message', function(){
     cy.on('window:alert', (str) =>
     {
