@@ -14,10 +14,11 @@ module.exports = defineConfig({
     env: {
       url: "https://www.demoblaze.com/index.html",
       Username: "darmolyn",
-      Password: "schoolbag"
+      Password: "schoolbag",
     },
     e2e: {
         setupNodeEvents,
         specPattern: 'cypress/integration/BDD/*.feature',
+        supportFile: 'cypress/support/e2e.js',
     },
 });
