@@ -5,6 +5,9 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+      strategy:​
+        matrix:​
+          browser:[chrome, firefox, edge]​
     
     steps:
     - name: Checkout repository
@@ -21,4 +24,4 @@ jobs:
     - name: Run Cypress tests
       env:
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-      run: npx cypress run --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
+      run: npx cypress run  --browser ${{ matrix.browser }}​ --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
