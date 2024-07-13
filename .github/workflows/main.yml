@@ -5,10 +5,10 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-      strategy:​
-        matrix:​
-          browser:[chrome, firefox, edge]​
-    
+    strategy:
+      matrix:
+        browser: [chrome, firefox, edge]
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -21,7 +21,22 @@ jobs:
     - name: Install project dependencies
       run: npm install
       
+    - name: Install Cypress
+      run: npm install cypress
+      
+    - name: Install browser dependencies
+      run: |
+        if [ "${{ matrix.browser }}" == "firefox" ]; then
+          sudo apt-get install -y firefox
+        elif [ "${{ matrix.browser }}" == "edge" ]; then
+          sudo apt-get install -y wget
+          wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+          sudo apt-get update
+          sudo apt-get install -y microsoft-edge-stable
+        fi
+
     - name: Run Cypress tests
       env:
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-      run: npx cypress run  --browser ${{ matrix.browser }}​ --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
+      run: npx cypress run --browser ${{ matrix.browser }} --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
