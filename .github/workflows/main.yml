@@ -40,10 +40,13 @@ jobs:
     - name: Verify browser installation
       run: |
         if [ "${{ matrix.browser }}" == "firefox" ]; then
+          which firefox
           firefox --version
         elif [ "${{ matrix.browser }}" == "edge" ]; then
+          which microsoft-edge
           microsoft-edge --version
         elif [ "${{ matrix.browser }}" == "chrome" ]; then
+          which google-chrome
           google-chrome --version
         fi
 
