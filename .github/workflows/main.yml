@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        browser: [chrome, firefox, edge]
+        browser: [chrome, edge, firefox, safari]
 
     steps:
     - name: Checkout repository
@@ -31,10 +31,17 @@ jobs:
           sudo apt-get install -y firefox
         elif [ "${{ matrix.browser }}" == "edge" ]; then
           sudo apt-get install -y wget
-          wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+          wget -q (link unavailable) -O- | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] (link unavailable) stable main"
           sudo apt-get update
           sudo apt-get install -y microsoft-edge-stable
+        elif [ "${{ matrix.browser }}" == "chrome" ]; then
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+        elif [ "${{ matrix.browser }}" == "safari" ]; then
+          # Safari is not available on Ubuntu, so we can't install it
+          # You may want to consider using a different browser or a cloud service that provides Safari
+          echo "Safari is not available on Ubuntu"
         fi
     - name: Verify browser installation
       run: |
@@ -47,6 +54,9 @@ jobs:
         elif [ "${{ matrix.browser }}" == "chrome" ]; then
           which google-chrome
           google-chrome --version
+        elif [ "${{ matrix.browser }}" == "safari" ]; then
+          # Safari is not available on Ubuntu, so we can't verify its installation
+          echo "Safari is not available on Ubuntu"
         fi
     - name: Run Cypress tests
       env:
@@ -58,4 +68,7 @@ jobs:
           npx cypress run --browser chrome --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
         elif [ "${{ matrix.browser }}" == "edge" ]; then
           npx cypress run --browser edge --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        elif [ "${{ matrix.browser }}" == "safari" ]; then
+          # Safari is not available on Ubuntu, so we can't run Cypress tests on it
+          echo "Safari is not available on Ubuntu"
         fi
