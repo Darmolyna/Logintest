@@ -39,4 +39,10 @@ jobs:
     - name: Run Cypress tests
       env:
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-      run: npx cypress run --browser ${{ matrix.browser }} --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        FIREFOX_BIN: ${{ env.FIREFOX_BIN }}
+      run: |
+        if [ "${{ matrix.browser }}" == "firefox" ]; then
+          npx cypress run --browser firefox --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }} --browser-executable-path "${FIREFOX_BIN}"
+        else
+          npx cypress run --browser "${{ matrix.browser }}" --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        fi
