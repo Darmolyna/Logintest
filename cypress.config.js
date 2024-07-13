@@ -21,4 +21,15 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/BDD/*.feature',
         supportFile: 'cypress/support/e2e.js',
     },
+    "browsers": [
+    {
+      "name": "firefox",
+      "family": "firefox",
+      "channel": "stable",
+      "displayName": "Firefox",
+      "version": "latest",
+      "path": "firefox",
+      "majorVersion": "latest"
+    }
+  ]
 });
