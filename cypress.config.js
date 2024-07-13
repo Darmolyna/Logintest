@@ -20,6 +20,5 @@ module.exports = defineConfig({
         setupNodeEvents,
         specPattern: 'cypress/integration/BDD/*.feature',
         supportFile: 'cypress/support/e2e.js',
-        "browsers": ["chrome", "chromium", "edge", "firefox"]
     },
 });
