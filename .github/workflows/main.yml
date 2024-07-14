@@ -64,4 +64,3 @@ jobs:
         elif [ "${{ matrix.browser }}" == "edge" ]; then
           npx cypress run --browser edge --config-file=cypress.config.js --record true --key ${{ secrets.CYPRESS_RECORD_KEY }}
         fi
-
